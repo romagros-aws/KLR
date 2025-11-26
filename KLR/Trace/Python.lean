@@ -246,6 +246,14 @@ private def modifyList (t : Term) (f : Array Term -> (Array Term × a)) : Trace 
   extend_global name (.list arr)
   return x
 
+nki builtin.op.in (t : Term) (l : Term) := do
+  let l <- fetchIter l
+  return .bool (l.contains t)
+
+nki builtin.op.notin (t : Term) (l : Term) := do
+  let l <- fetchIter l
+  return .bool (l.contains t).not
+
 nki builtin.python.tuple (t : Term) := do
   let l <- fetchIter t
   return .tuple l
